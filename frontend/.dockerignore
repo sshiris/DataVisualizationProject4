@@ -1,0 +1,10 @@
+.gitignore
+Dockerfile
+.dockerignore
+eslint.config.js
+dist
+node_modules
+README.md
+tsconfig.app.json
+tsconfig.json
+vite.config.ts
