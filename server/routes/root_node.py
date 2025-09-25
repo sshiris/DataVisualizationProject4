@@ -1,7 +1,19 @@
 from fastapi import APIRouter
+from data.sample_data import current_data
 
 router = APIRouter()
-
 @router.get("/root_node")
 async def get_root_node():
-    return {"message": "root boy"}
+    parents = set()
+    children = set()
+    
+    for item in current_data:
+        parents.add(item["parent_item"])
+        children.add(item["child_item"])
+        
+    roots = parents - children
+    
+    return {"message": "root boy",
+            "root_node": list(roots),
+            "count": len(roots)
+            }
