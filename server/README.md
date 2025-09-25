@@ -30,6 +30,8 @@ pip install -r requirements.txt
 
 ## 2) Run the server locally
 
+### Just use command: python main.py
+
 From the `server/` directory:
 
 ```bash
