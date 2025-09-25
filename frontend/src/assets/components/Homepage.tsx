@@ -1,14 +1,26 @@
 import Button from '@mui/material/Button';
+import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import { useState, type ChangeEvent } from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 
 export default function Homepage() {
   const [file, setFile] = useState<File | null>(null);
+
   console.log(file);
 
-  const handleUpload = () => {
-    // Upload logic here
+  const handleUpload = (file: File | null) => {
+    if (!file) {
+      alert("Please select a file first.");
+      return;
+    }
+
+    const form = new FormData();
+    form.append('selected_file', file);
+
+    axios.post('http://localhost:8000/api/upload-csv', form)
+      .then(res => console.log("Upload success", res))
+      .catch(err => console.error("Upload failed", err));
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +70,7 @@ export default function Homepage() {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleUpload}
+              onClick={() => handleUpload(file)}
               sx={{
                 whiteSpace: 'nowrap',
                 height: '56px',
